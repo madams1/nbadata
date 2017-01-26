@@ -1,6 +1,6 @@
 Package: nbadata
 Title: NBA data from the 1996-97 season to the 2016-17 season.
-Version: 0.0.0.9000
+Version: 1.0
 Authors@R: person("Matt", "Adams", email = "adams.matt.01@gmail.com", role = c("aut", "cre"))
 Description: Basketball data from http://stats.nba.com for all players, teams,
     and games from 1996-97 to 2016-17.
