@@ -20,7 +20,7 @@ release_new_data <- function() {
         bind_rows
 
     # player shots
-    player_seasons <- combn_season_player()
+    player_seasons <- combn_season_player(nba_players)
 
     nba_player_shots <-
         parallel::mcMap(
@@ -43,7 +43,7 @@ release_new_data <- function() {
         )
 
     # team games
-    team_seasons <- combn_season_team()
+    team_seasons <- combn_season_team(nba_player_shots)
 
     nba_team_games <-
         parallel::mcMap(
@@ -68,7 +68,7 @@ release_new_data <- function() {
         select(-season)
 
     # play by play
-    game_seasons <- combn_season_game()
+    game_seasons <- combn_season_game(nba_team_games)
 
     nba_play_by_play <-
         parallel::mclapply(
