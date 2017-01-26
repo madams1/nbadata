@@ -109,3 +109,15 @@ devtools::use_data(
 # put in zipfile and cleanup
 zip("nbadata", list.files("data", full.names = TRUE))
 unlink("data", recursive = TRUE)
+
+# bump version
+read.dcf("DESCRIPTION") %>%
+    as_data_frame %>%
+    mutate(Version = format(as.numeric(Version) + 1, nsmall = 1)) %>%
+    write.dcf("DESCRIPTION")
+
+# commit changes to DESCRIPTION
+system("git add DESCRIPTION && git commit -m 'bump version' && git push")
+
+# release new version of data on GH
+nbadata::mydata_release("refresh data", filename = "nbadata.zip", yes = TRUE)
