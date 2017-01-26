@@ -68,7 +68,7 @@ calc_elapsed_seconds <- function(per, timestring) {
 }
 
 # helper for loading data from zipfile
-load_zip <- function(zf) {
+load_from_zip <- function(zf) {
     zip_dir <- tempfile()
     unzip(zf, exdir = zip_dir, junkpaths = TRUE)
     files <- list.files(zip_dir, full.names = TRUE)
