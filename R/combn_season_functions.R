@@ -2,12 +2,12 @@
 # functions for generating <x>-season combinations --------------------------------------------
 
 # player - season strings for each season a player played
-combn_season_player <- function(pid = NULL, after_shot_data = TRUE) {
+combn_season_player <- function(df = nba_players, pid = NULL, after_shot_data = TRUE) {
 
     player_tbl <- if (is_null(pid)) {
-        nba_players
+        df
     } else {
-        nba_players %>%
+        df %>%
             filter(player_id == pid)
     }
 
@@ -38,16 +38,16 @@ combn_season_player <- function(pid = NULL, after_shot_data = TRUE) {
 }
 
 # team - season strings for each team
-combn_season_team <- function(tid = NULL) {
+combn_season_team <- function(df = nba_player_shots, tid = NULL) {
 
     if (is_null(tid)) {
-        nba_player_shots %>%
+        df %>%
             mutate(season = create_season_string(game_date)) %>%
             distinct(team_id, season) %>%
             arrange(season, team_id)
 
     } else {
-        nba_player_shots %>%
+        df %>%
             filter(team_id == tid) %>%
             mutate(season = create_season_string(game_date)) %>%
             distinct(team_id, season) %>%
@@ -57,15 +57,15 @@ combn_season_team <- function(tid = NULL) {
 }
 
 # game - season strings for each game
-combn_season_game <- function(tid = NULL) {
+combn_season_game <- function(df = nba_team_games, tid = NULL) {
 
     if (is_null(tid)) {
-        nba_team_games %>%
+        df %>%
             mutate(season = create_season_string(game_date)) %>%
             distinct(game_id, season, matchup)
 
     } else {
-        nba_team_games %>%
+        df %>%
             filter(team_id == tid) %>%
             mutate(season = create_season_string(game_date)) %>%
             distinct(team_id, game_id, season, matchup)
