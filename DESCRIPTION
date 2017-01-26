@@ -4,9 +4,11 @@ Version: 1.0
 Authors@R: person("Matt", "Adams", email = "adams.matt.01@gmail.com", role = c("aut", "cre"))
 Description: Basketball data from http://stats.nba.com for all players, teams,
     and games from 1996-97 to 2016-17.
-Depends: R (>= 3.3.2)
+Depends:
+    R (>= 3.3.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/madams1/nbadata
 BugReports: https://github.com/madams1/nbadata/issues
+RoxygenNote: 5.0.1
