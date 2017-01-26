@@ -49,7 +49,7 @@ mydata_del <- function(version, path=NULL) {
 mydata_info <- function(path) {
     datastorr::github_release_info("madams1/nbadata",
                                    filename="nbadata.zip",
-                                   read=nbadata:::load_zip,
+                                   read=unzip,
                                    path=path)
 }
 
