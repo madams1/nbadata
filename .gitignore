@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+nbadata.zip
+data/*.rda
