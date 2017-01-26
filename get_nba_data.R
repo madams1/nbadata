@@ -100,14 +100,14 @@ devtools::use_data(
     nba_player_shots,
     nba_team_games,
     nba_play_by_play,
-    compress = "bzip2",
-    overwrite = TRUE
+    overwrite = TRUE,
+    compress = "bzip2"
 )
 
 })
 
 # put in zipfile and cleanup
-zip("nbadata", list.files("data", full.names = TRUE))
+zip("nbadata", list.files("data", full.names = TRUE), flags = "-j")
 unlink("data", recursive = TRUE)
 
 # bump version
@@ -120,4 +120,4 @@ read.dcf("DESCRIPTION") %>%
 system("git add DESCRIPTION && git commit -m 'bump version' && git push")
 
 # release new version of data on GH
-nbadata::mydata_release("refresh data", filename = "nbadata.zip", yes = TRUE)
+nbadata::nbadata_release("refresh data", filename = "nbadata.zip", yes = TRUE)
