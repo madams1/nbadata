@@ -68,11 +68,14 @@ calc_elapsed_seconds <- function(per, timestring) {
 }
 
 # helper for loading data from zipfile
-load_from_zip <- function(zf) {
-    zip_dir <- tempfile()
-    unzip(zf, exdir = zip_dir, junkpaths = TRUE)
-    files <- list.files(zip_dir, full.names = TRUE)
-    for (file in files) {
-        load(file, envir = .GlobalEnv)
+nbadata_load_all <- function(path = "./") {
+    create_filename <- function(fn) {
+        paste0(path, fn, ".rda")
     }
+
+    load(create_filename("nba_teams")) # teams
+    load(create_filename("nba_players")) # players
+    load(create_filename("nba_team_games")) # team games
+    load(create_filename("nba_player_shots")) # player shots
+    load(create_filename("nba_play_by_play")) # play by play
 }
