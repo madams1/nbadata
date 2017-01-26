@@ -5,13 +5,16 @@ require(lubridate)
 
 devtools::load_all(".")
 
+system.time({
+
+
 # players
-players <- get_player_data(FALSE)
+nba_players <- get_player_data(FALSE)
 
 # teams
-teams <-
+nba_teams <-
     parallel::mclapply(
-        unique(players[["team_id"]]) %>% discard(is.na),
+        unique(nba_players[["team_id"]]) %>% discard(is.na),
         get_team_data,
         mc.cores = parallel::detectCores()
     ) %>%
@@ -20,7 +23,7 @@ teams <-
 # player shots
 player_seasons <- combn_season_player()
 
-player_shots <-
+nba_player_shots <-
     parallel::mcMap(
         get_player_shot_data %>% safely,
         player_seasons[["player_id"]],
@@ -43,7 +46,7 @@ player_shots <-
 # team games
 team_seasons <- combn_season_team()
 
-team_games <-
+nba_team_games <-
     parallel::mcMap(
         get_team_game_data %>% safely,
         team_seasons[["team_id"]],
@@ -68,7 +71,7 @@ team_games <-
 # play by play
 game_seasons <- combn_season_game()
 
-play_by_play <-
+nba_play_by_play <-
     parallel::mclapply(
         game_seasons %>% transpose,
         get_play_by_play_data %>% safely,
@@ -90,13 +93,19 @@ play_by_play <-
     tidyr::fill(score, scoremargin)
 
 
-# save data and put in zip folder
+# save data
 devtools::use_data(
-    players,
-    teams,
-    player_shots,
-    team_games,
-    play_by_play,
+    nba_players,
+    nba_teams,
+    nba_player_shots,
+    nba_team_games,
+    nba_play_by_play,
     compress = "bzip2",
     overwrite = TRUE
 )
+
+})
+
+# put in zipfile and cleanup
+zip("nbadata", list.files("data", full.names = TRUE))
+unlink("data", recursive = TRUE)
