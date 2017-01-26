@@ -66,3 +66,13 @@ calc_elapsed_seconds <- function(per, timestring) {
     elapsed_in_period <- period_start - seconds_in_period
     previous_elapsed + elapsed_in_period
 }
+
+# helper for loading data from zipfile
+load_zip <- function(zf) {
+    zip_dir <- tempfile()
+    unzip(zf, exdir = zip_dir, junkpaths = TRUE)
+    files <- list.files(zip_dir, full.names = TRUE)
+    for (file in files) {
+        load(file, envir = .GlobalEnv)
+    }
+}
