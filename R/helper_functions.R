@@ -68,7 +68,7 @@ calc_elapsed_seconds <- function(per, timestring) {
 }
 
 # helper for loading data from zipfile
-nbadata_load_all <- function(path = "./") {
+nbadata_load_all <- function(path = "_nbadata/") {
     create_filename <- function(fn) {
         paste0(path, fn, ".rda")
     }

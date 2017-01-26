@@ -16,7 +16,7 @@
 ##'   use a different path).
 ##'
 ##' @export
-nbadata <- function(version=NULL, path=NULL) {
+nbadata <- function(version=NULL, path="_nbadata") {
     datastorr::github_release_get(nbadata_info(path), version)
 }
 
