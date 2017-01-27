@@ -67,15 +67,29 @@ calc_elapsed_seconds <- function(per, timestring) {
     previous_elapsed + elapsed_in_period
 }
 
-# helper for loading data from zipfile
-nbadata_load_all <- function(path = "_nbadata/") {
-    create_filename <- function(fn) {
-        paste0(path, fn, ".rda")
+# helper for loading data extracted data
+nbadata_load_all <- function(path = "./") {
+
+    dataset_names <- c(
+        "nba_teams",
+        "nba_players",
+        "nba_team_games",
+        "nba_player_shots",
+        "nba_play_by_play"
+    )
+
+    load_file <- function(fn) {
+        load(paste0(path, fn, ".rda"), envir = .GlobalEnv)
     }
 
-    load(create_filename("nba_teams")) # teams
-    load(create_filename("nba_players")) # players
-    load(create_filename("nba_team_games")) # team games
-    load(create_filename("nba_player_shots")) # player shots
-    load(create_filename("nba_play_by_play")) # play by play
+    for (i in seq_along(dataset_names)) {
+        file_name <- paste0("./", dataset_names[i], ".rda")
+        file_size <- utils:::format.object_size(file.size(file_name), "auto")
+
+        message(
+            "[", i, "/", length(dataset_names), "] Loading ",
+            file_name, " (", file_size, ")"
+        )
+        load_file(dataset_names[i])
+    }
 }
