@@ -67,7 +67,15 @@ calc_elapsed_seconds <- function(per, timestring) {
     previous_elapsed + elapsed_in_period
 }
 
-# helper for loading data extracted data
+
+#' Load all nbadata into workspace
+#'
+#' @param path A character string for the path to load nbadata files from.
+#'   Defaults to current working directory.
+#'
+#' @return Called for its side effects. Returns invisible NULL
+#' @export
+#'
 nbadata_load_all <- function(path = "./") {
 
     dataset_names <- c(
@@ -92,4 +100,5 @@ nbadata_load_all <- function(path = "./") {
         )
         load_file(dataset_names[i])
     }
+    return(invisible(NULL))
 }

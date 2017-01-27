@@ -2,6 +2,7 @@
 
 export(nbadata)
 export(nbadata_del)
+export(nbadata_load_all)
 export(nbadata_release)
 export(nbadata_version_current)
 export(nbadata_versions)
