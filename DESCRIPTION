@@ -1,5 +1,5 @@
 Package: nbadata
-Title: NBA data from the 1996-97 season to the 2016-17 season.
+Title: NBA data from the 1996-97 season to the 2016-17 season
 Version: 0.0.0
 Authors@R: person("Matt", "Adams", email = "adams.matt.01@gmail.com", role = c("aut", "cre"))
 Description: Basketball data from http://stats.nba.com for all players, teams, and games from
@@ -11,4 +11,5 @@ LazyData: true
 URL: https://github.com/madams1/nbadata
 BugReports: https://github.com/madams1/nbadata/issues
 RoxygenNote: 5.0.1
-Imports: datastorr
+Imports: datastorr,
+    utils
