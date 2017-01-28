@@ -49,7 +49,7 @@ nbadata_del <- function(version, path=NULL) {
 nbadata_info <- function(path) {
     datastorr::github_release_info("madams1/nbadata",
                                    filename="nbadata.zip",
-                                   read=unzip,
+                                   read=utils::unzip,
                                    path=path)
 }
 
@@ -65,6 +65,10 @@ nbadata_info <- function(path) {
 nbadata_release <- function(..., path=NULL) {
     datastorr::github_release_create(nbadata_info(path), ...)
 }
+
+
+# make use of unexported formatting function from utils
+file_size_format <- utils:::format.object_size
 
 
 #' Load all nbadata into workspace
@@ -91,7 +95,7 @@ nbadata_load_all <- function(path = "./") {
 
     for (i in seq_along(dataset_names)) {
         file_name <- paste0("./", dataset_names[i], ".rda")
-        file_size <- utils:::format.object_size(file.size(file_name), "auto")
+        file_size <- file_size_format(file.size(file_name), "auto")
 
         message(
             "[", i, "/", length(dataset_names), "] Loading ",
