@@ -1,2 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+nbadata.zip
+get_nba_data.R
+R/get_data_functions.R
+R/combn_season_functions.R
+R/helper_functions.R
