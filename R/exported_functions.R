@@ -65,3 +65,39 @@ nbadata_info <- function(path) {
 nbadata_release <- function(..., path=NULL) {
     datastorr::github_release_create(nbadata_info(path), ...)
 }
+
+
+#' Load all nbadata into workspace
+#'
+#' @param path A character string for the path to load nbadata files from.
+#'   Defaults to current working directory.
+#'
+#' @return Called for its side effects. Returns invisible NULL
+#' @export
+#'
+nbadata_load_all <- function(path = "./") {
+
+    dataset_names <- c(
+        "nba_teams",
+        "nba_players",
+        "nba_team_games",
+        "nba_player_shots",
+        "nba_play_by_play"
+    )
+
+    load_file <- function(fn) {
+        load(paste0(path, fn, ".rda"), envir = .GlobalEnv)
+    }
+
+    for (i in seq_along(dataset_names)) {
+        file_name <- paste0("./", dataset_names[i], ".rda")
+        file_size <- utils:::format.object_size(file.size(file_name), "auto")
+
+        message(
+            "[", i, "/", length(dataset_names), "] Loading ",
+            file_name, " (", file_size, ")"
+        )
+        load_file(dataset_names[i])
+    }
+    return(invisible(NULL))
+}
