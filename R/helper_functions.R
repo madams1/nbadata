@@ -66,3 +66,24 @@ calc_elapsed_seconds <- function(per, timestring) {
     elapsed_in_period <- period_start - seconds_in_period
     previous_elapsed + elapsed_in_period
 }
+
+# for bumping the DESCRIPTION's version
+bump_version <- function(type = c("minor", "patch", "major")) {
+    type <- match.arg(type)
+
+    des_df <- as.data.frame(read.dcf("DESCRIPTION"), stringsAsFactors = FALSE)
+
+    v_split <- as.integer(unlist(strsplit(des_df$Version, "\\.")))
+    names(v_split) <- c("major", "minor", "patch")
+    v_split[[type]] <- v_split[[type]] + 1
+    if (type != "patch") {
+        v_split[["patch"]] <- 0
+    }
+    if (type == "major") {
+        v_split[["minor"]] <- 0
+    }
+    new_version <- paste(v_split, collapse = ".")
+
+    des_df$Version <- new_version
+    write.dcf(des_df, "DESCRIPTION")
+}
