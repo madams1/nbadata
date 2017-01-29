@@ -119,3 +119,4 @@ release_new_data <- function() {
 }
 
 system.time(release_new_data())
+gc()
