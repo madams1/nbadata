@@ -84,7 +84,9 @@ get_team_data <- function(team_id, season = create_season_string()) {
 
 # team games ----------------------------------------------------------------------------------
 
-get_team_game_data <- function(team_id, season = create_season_string()) {
+get_team_game_data <- function(team_id, season = create_season_string(), post_season = FALSE) {
+
+    season_type <- ifelse(post_season, "Playoffs", "Regular Season")
 
     # request team game data from nba.com for team_id
     this_team_game_list <-
@@ -94,7 +96,7 @@ get_team_game_data <- function(team_id, season = create_season_string()) {
             query = list(
                 LeagueID = "00",
                 Season = season,
-                SeasonType = "Regular Season",
+                SeasonType = season_type,
                 TeamID = team_id
             )
         ) %>%
@@ -115,7 +117,9 @@ get_team_game_data <- function(team_id, season = create_season_string()) {
 
 # player shots --------------------------------------------------------------------------------
 
-get_player_shot_data <- function(player_id, season = create_season_string()) {
+get_player_shot_data <- function(player_id, season = create_season_string(), post_season = FALSE) {
+
+    season_type <- ifelse(post_season, "Playoffs", "Regular Season")
 
     # request player shot data from nba.com for player_id
     this_player_shot_list <-
@@ -148,7 +152,7 @@ get_player_shot_data <- function(player_id, season = create_season_string()) {
                 RookieYear = "",
                 Season = season,
                 SeasonSegment = "",
-                SeasonType = "Regular Season",
+                SeasonType = season_type,
                 TeamID = 0,
                 VsConference = "",
                 VsDivision = "",
@@ -173,7 +177,9 @@ get_player_shot_data <- function(player_id, season = create_season_string()) {
 
 # play by play --------------------------------------------------------------------------------
 
-get_play_by_play_data <- function(game_season) {
+get_play_by_play_data <- function(game_season, post_season = FALSE) {
+
+    season_type <- ifelse(post_season, "Playoffs", "Regular Season")
 
     # request play by play data from nba.com
     this_play_by_play_list <-
@@ -186,7 +192,7 @@ get_play_by_play_data <- function(game_season) {
                 GameID = game_season[["game_id"]],
                 RangeType = 2,
                 Season = game_season[["season"]],
-                SeasonType = "Regular Season",
+                SeasonType = season_type,
                 StartPeriod = 1,
                 StartRange = 0
             )
