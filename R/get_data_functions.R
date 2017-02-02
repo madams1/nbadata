@@ -117,9 +117,9 @@ get_team_game_data <- function(team_id, season = create_season_string(), post_se
 
 # player shots --------------------------------------------------------------------------------
 
-get_player_shot_data <- function(player_id, season = create_season_string(), post_season = FALSE) {
+get_player_shot_data <- function(player_id, season = create_season_string(), game_type = c("Regular Season", "Playoffs", "Pre Season")) {
 
-    season_type <- ifelse(post_season, "Playoffs", "Regular Season")
+    game_type <- match.arg(game_type)
 
     # request player shot data from nba.com for player_id
     this_player_shot_list <-
@@ -152,7 +152,7 @@ get_player_shot_data <- function(player_id, season = create_season_string(), pos
                 RookieYear = "",
                 Season = season,
                 SeasonSegment = "",
-                SeasonType = season_type,
+                SeasonType = game_type,
                 TeamID = 0,
                 VsConference = "",
                 VsDivision = "",
@@ -171,7 +171,8 @@ get_player_shot_data <- function(player_id, season = create_season_string(), pos
 
     # create the output dataframe
     map(this_player_shot_list[["rowSet"]], set_names, player_shot_cols) %>%
-        map_df(as_data_frame)
+        map_df(as_data_frame) %>%
+        mutate(game_type = season_type)
 }
 
 

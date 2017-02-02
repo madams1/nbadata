@@ -1,6 +1,9 @@
 
 # functions for generating <x>-season combinations --------------------------------------------
 
+# game types available
+game_types <- c("Pre Season", "Regular Season", "Playoffs")
+
 # player - season strings for each season a player played
 combn_season_player <- function(df = nba_players, pid = NULL, after_shot_data = TRUE) {
 

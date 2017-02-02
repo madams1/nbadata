@@ -27,6 +27,7 @@ release_new_data <- function() {
             get_player_shot_data %>% safely,
             player_seasons[["player_id"]],
             player_seasons[["season"]],
+            rep(game_types, times = nrow(player_seasons)),
             mc.cores = parallel::detectCores()
         ) %>%
         discard_errors %>%
