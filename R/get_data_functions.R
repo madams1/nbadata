@@ -27,7 +27,6 @@ get_player_data <- function(is_current_season = TRUE, season = create_season_str
     map(players_list[["rowSet"]], ~ map(.x, create_nas)) %>% # add NAs when appropriate
         map(set_names, player_cols) %>% # name each list
         map_df(as_data_frame) %>% # convert each list to tibble
-        filter(!stringr::str_detect(playercode, "HISTADD")) %>% # exclude historical additions
         # include more appropriate types for cols
         mutate(
             on_roster = as.logical(rosterstatus),
@@ -172,7 +171,7 @@ get_player_shot_data <- function(player_id, season = create_season_string(), gam
     # create the output dataframe
     map(this_player_shot_list[["rowSet"]], set_names, player_shot_cols) %>%
         map_df(as_data_frame) %>%
-        mutate(game_type = season_type)
+        mutate(game_type = game_type)
 }
 
 
